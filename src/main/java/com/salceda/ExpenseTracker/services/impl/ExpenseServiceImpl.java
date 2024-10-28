@@ -12,6 +12,7 @@ import com.salceda.ExpenseTracker.repositories.ExpenseRepository;
 import com.salceda.ExpenseTracker.services.ExpenseService;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,18 +48,29 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public List<ExpenseDTO> getAllExpenses() {
         List<Expense> expenses = expenseRepository.findAll();
-        return expenses.stream().map(expense -> expenseMapper.toExpenseDTO(expense,
-                expenseCategoryMapper.toExpenseCategoryDTO(expense.getExpenseCategory()))).collect(Collectors.toList());
+        return expenses.stream()
+                .sorted(Comparator.comparingLong(Expense::getId))
+                .map(expense -> expenseMapper.toExpenseDTO(expense,expenseCategoryMapper.toExpenseCategoryDTO(expense.getExpenseCategory())))
+                .collect(Collectors.toList());
     }
 
     @Override
     public ExpenseDTO updateExpense(Long id, ExpenseDTO expenseDTO) {
-        return null;
+        Expense expense = expenseRepository.findById(id).orElseThrow(() -> new ExpenseNotFound("Expense not found!"));
+        expense.setAmount(expenseDTO.getAmount());
+        expense.setDescription(expenseDTO.getDescription());
+        expense.setDate(expenseDTO.getDate());
+        ExpenseCategory expenseCategory = expenseCategoryRepository.findById(expenseDTO.getExpenseCategoryId())
+                .orElseThrow(() -> new ExpenseCategoryNotFound("Expense category not found!"));
+        expense.setExpenseCategory(expenseCategory);
+        expenseRepository.save(expense);
+        return expenseMapper.toExpenseDTO(expense, expenseCategoryMapper.toExpenseCategoryDTO(expenseCategory));
     }
 
     @Override
     public void deleteExpense(Long id) {
-
+        Expense expense = expenseRepository.findById(id).orElseThrow(() -> new ExpenseNotFound("Expense not found"));
+        expenseRepository.delete(expense);
     }
 
 }

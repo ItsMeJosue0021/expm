@@ -32,13 +32,18 @@ public class ExpenseController {
 
     @PostMapping("expenses")
     public ResponseEntity<ExpenseDTO> createExpense(@RequestBody ExpenseDTO expenseDTO) {
-        ExpenseDTO createdExpense = expenseService.createExpense(expenseDTO);
-        return new ResponseEntity<>(createdExpense, HttpStatus.CREATED);
+        return new ResponseEntity<>(expenseService.createExpense(expenseDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("expsenses/{id}")
+    @PutMapping("expenses/{id}")
     public ResponseEntity<ExpenseDTO> updateExpense(@PathVariable Long id, @RequestBody ExpenseDTO expenseDTO) {
+        return new ResponseEntity<>(expenseService.updateExpense(id, expenseDTO), HttpStatus.OK);
+    }
 
+    @DeleteMapping("expenses/{id}")
+    public ResponseEntity<Void> deleteExpense(@PathVariable Long id) {
+        expenseService.deleteExpense(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
