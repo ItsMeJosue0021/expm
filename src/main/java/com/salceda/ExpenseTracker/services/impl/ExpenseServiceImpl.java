@@ -1,7 +1,7 @@
 package com.salceda.ExpenseTracker.services.impl;
 
-import com.salceda.ExpenseTracker.DTOMappers.ExpenseCategoryMapper;
-import com.salceda.ExpenseTracker.DTOMappers.ExpenseMapper;
+import com.salceda.ExpenseTracker.mappers.ExpenseCategoryMapper;
+import com.salceda.ExpenseTracker.mappers.ExpenseMapper;
 import com.salceda.ExpenseTracker.DTOs.ExpenseDTO;
 import com.salceda.ExpenseTracker.exceptions.ExpenseCategoryNotFound;
 import com.salceda.ExpenseTracker.exceptions.ExpenseNotFound;

@@ -1,12 +1,9 @@
-package com.salceda.ExpenseTracker.DTOMappers;
+package com.salceda.ExpenseTracker.mappers;
 
 import com.salceda.ExpenseTracker.DTOs.ExpenseCategoryDTO;
 import com.salceda.ExpenseTracker.DTOs.ExpenseDTO;
 import com.salceda.ExpenseTracker.models.Expense;
 import com.salceda.ExpenseTracker.models.ExpenseCategory;
-import com.salceda.ExpenseTracker.requests.ExpenseRequest;
-import com.salceda.ExpenseTracker.services.ExpenseCategoryService;
-import com.salceda.ExpenseTracker.services.ExpenseService;
 import org.springframework.stereotype.Component;
 
 @Component

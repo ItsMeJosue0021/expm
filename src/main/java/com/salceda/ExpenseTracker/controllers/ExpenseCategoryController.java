@@ -2,6 +2,7 @@ package com.salceda.ExpenseTracker.controllers;
 
 import com.salceda.ExpenseTracker.DTOs.ExpenseCategoryDTO;
 import com.salceda.ExpenseTracker.services.ExpenseCategoryService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,13 +30,13 @@ public class ExpenseCategoryController {
     }
 
     @PostMapping("categories")
-    public ResponseEntity<ExpenseCategoryDTO> createExpenseCategory(@RequestBody ExpenseCategoryDTO expenseCategoryDTO) {
+    public ResponseEntity<ExpenseCategoryDTO> createExpenseCategory(@Valid @RequestBody ExpenseCategoryDTO expenseCategoryDTO) {
         ExpenseCategoryDTO createdExpenseCategory = expenseCategoryService.createExpenseCategory(expenseCategoryDTO);
         return new ResponseEntity<>(createdExpenseCategory, HttpStatus.CREATED);
     }
 
     @PutMapping("categories/{id}")
-    public ResponseEntity<ExpenseCategoryDTO> updateExpenseCategory(@PathVariable Long id, @RequestBody ExpenseCategoryDTO expenseCategoryDTO) {
+    public ResponseEntity<ExpenseCategoryDTO> updateExpenseCategory(@Valid @PathVariable Long id, @RequestBody ExpenseCategoryDTO expenseCategoryDTO) {
         return new ResponseEntity<>(expenseCategoryService.updateExpenseCategory(id, expenseCategoryDTO), HttpStatus.OK);
     }
 

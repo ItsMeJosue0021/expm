@@ -3,6 +3,7 @@ package com.salceda.ExpenseTracker.controllers;
 import com.salceda.ExpenseTracker.DTOs.ExpenseDTO;
 import com.salceda.ExpenseTracker.exceptions.ExpenseNotFound;
 import com.salceda.ExpenseTracker.services.ExpenseService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +32,12 @@ public class ExpenseController {
     }
 
     @PostMapping("expenses")
-    public ResponseEntity<ExpenseDTO> createExpense(@RequestBody ExpenseDTO expenseDTO) {
+    public ResponseEntity<ExpenseDTO> createExpense(@Valid @RequestBody ExpenseDTO expenseDTO) {
         return new ResponseEntity<>(expenseService.createExpense(expenseDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("expenses/{id}")
-    public ResponseEntity<ExpenseDTO> updateExpense(@PathVariable Long id, @RequestBody ExpenseDTO expenseDTO) {
+    public ResponseEntity<ExpenseDTO> updateExpense(@Valid @PathVariable Long id, @RequestBody ExpenseDTO expenseDTO) {
         return new ResponseEntity<>(expenseService.updateExpense(id, expenseDTO), HttpStatus.OK);
     }
 

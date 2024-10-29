@@ -1,14 +1,11 @@
-package com.salceda.ExpenseTracker.DTOMappers;
+package com.salceda.ExpenseTracker.mappers;
 
 import com.salceda.ExpenseTracker.DTOs.ExpenseCategoryDTO;
 import com.salceda.ExpenseTracker.models.Expense;
 import com.salceda.ExpenseTracker.models.ExpenseCategory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class ExpenseCategoryMapper {
