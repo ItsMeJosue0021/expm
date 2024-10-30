@@ -1,5 +1,6 @@
 package com.salceda.ExpenseTracker.services.impl;
 
+import com.salceda.ExpenseTracker.DTOs.CategoryExpenseDTO;
 import com.salceda.ExpenseTracker.mappers.ExpenseCategoryMapper;
 import com.salceda.ExpenseTracker.mappers.ExpenseMapper;
 import com.salceda.ExpenseTracker.DTOs.ExpenseDTO;
@@ -71,6 +72,18 @@ public class ExpenseServiceImpl implements ExpenseService {
     public void deleteExpense(Long id) {
         Expense expense = expenseRepository.findById(id).orElseThrow(() -> new ExpenseNotFound("Expense not found"));
         expenseRepository.delete(expense);
+    }
+
+    @Override
+    public List<CategoryExpenseDTO> getTotalExpenseByCategory() {
+        List<Expense> expenses = expenseRepository.findAll();
+
+        return expenses.stream().collect(Collectors.groupingBy(expense -> expense.getExpenseCategory().getName(),
+                Collectors.summingDouble(Expense::getAmount)))
+                .entrySet().stream()
+                .map(entry -> new CategoryExpenseDTO(entry.getKey(), entry.getValue()))
+                .sorted(Comparator.comparing(CategoryExpenseDTO::getAmount))
+                .collect(Collectors.toList());
     }
 
 }

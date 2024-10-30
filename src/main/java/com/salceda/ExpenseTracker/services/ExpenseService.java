@@ -1,5 +1,6 @@
 package com.salceda.ExpenseTracker.services;
 
+import com.salceda.ExpenseTracker.DTOs.CategoryExpenseDTO;
 import com.salceda.ExpenseTracker.DTOs.ExpenseDTO;
 import com.salceda.ExpenseTracker.exceptions.ExpenseNotFound;
 
@@ -11,6 +12,5 @@ public interface ExpenseService {
     List<ExpenseDTO> getAllExpenses();
     ExpenseDTO updateExpense(Long id, ExpenseDTO expenseDTO);
     void deleteExpense(Long id);
-
-
+    List<CategoryExpenseDTO> getTotalExpenseByCategory();
 }

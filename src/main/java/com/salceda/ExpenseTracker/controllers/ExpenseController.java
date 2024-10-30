@@ -1,5 +1,6 @@
 package com.salceda.ExpenseTracker.controllers;
 
+import com.salceda.ExpenseTracker.DTOs.CategoryExpenseDTO;
 import com.salceda.ExpenseTracker.DTOs.ExpenseDTO;
 import com.salceda.ExpenseTracker.exceptions.ExpenseNotFound;
 import com.salceda.ExpenseTracker.services.ExpenseService;
@@ -47,6 +48,10 @@ public class ExpenseController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
+    @GetMapping("expense-per-category")
+    public ResponseEntity<List<CategoryExpenseDTO>> getTotalExpenseByCategory() {
+        List<CategoryExpenseDTO> categoryExpenses = expenseService.getTotalExpenseByCategory();
+        return new ResponseEntity<>(categoryExpenses, HttpStatus.OK);
+    }
 
 }
